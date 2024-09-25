@@ -9,7 +9,7 @@ const res = await prisma.book.update({
       data: {
         memberId: 6,
       },
-})
+});
 console.log(res);
 
 
