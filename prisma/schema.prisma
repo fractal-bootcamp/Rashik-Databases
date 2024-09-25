@@ -1,12 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-}
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  }
 
 datasource db {
   provider = "postgresql"
@@ -21,7 +16,7 @@ model Book{
   member Member @relation(fields: [memberId],references: [id])
   memberId Int
   isbn   String
-  genres BookGenres[]
+  genres Genre[]
 }
 
 model Author{
@@ -40,13 +35,5 @@ model Member{
 model Genre{
   id Int  @id @default(autoincrement())
   name String 
-  books BookGenres[]
-}
-
-model BookGenres{
-  @@id([genreId,bookId])
-  book Book @relation(fields: [bookId],references: [id])
-  bookId Int
-  genre Genre @relation(fields: [genreId],references: [id])
-  genreId Int
+  books Book[]
 }
