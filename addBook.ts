@@ -13,4 +13,3 @@ const book = {
 const res = await prisma.book.create({ data: book });
 console.log(res);
 
-process.exit()
