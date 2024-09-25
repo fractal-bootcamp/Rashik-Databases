@@ -1,0 +1,42 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  output        = "generated/client1"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id                    Int     @id @default(autoincrement())
+  title                 String
+  author                Author  @relation(fields: [authorId], references: [id])
+  authorId              Int
+  currentlyBorrowedBy   Member  @relation(fields: [currentlyBorrowedById], references: [id])
+  currentlyBorrowedById Int     @default(1)
+  isbn                  String
+  genres                Genre[]
+}
+
+model Author {
+  id        Int    @id @default(autoincrement())
+  name      String
+  biography String
+  books     Book[]
+}
+
+model Member {
+  id      Int    @id @default(autoincrement())
+  name    String
+  email   String
+  address String
+  books   Book[]
+}
+
+model Genre {
+  id    Int    @id @default(autoincrement())
+  name  String
+  books Book[]
+}
