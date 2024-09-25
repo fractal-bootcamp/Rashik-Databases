@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const book = {
     title: 'book',
     authorId: 1,
-    memberId:1,
+    currentlyBorrowedById:1,
     isbn:'dbjdjajda',
     };
 
